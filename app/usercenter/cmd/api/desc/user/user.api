@@ -1,0 +1,81 @@
+syntax = "v1"
+
+info(
+	title: "用户实例"
+	desc: "用户实例"
+	author: "Bomb"
+	email: "****@163.com"
+)
+
+// ==================== 用户实体 ====================
+type User {
+    Id       int64  `json:"id"`
+    Mobile   string `json:"mobile"`
+    Nickname string `json:"nickname"`
+    Sex      int64  `json:"sex"`
+    Avatar   string `json:"avatar"`
+    Info     string `json:"info"`
+}
+
+
+
+
+// ==================== 请求/响应结构 ====================
+
+// 注册请求
+type (
+
+    RegisterReq {
+        Mobile   string `json:"mobile"`
+        Password string `json:"password"`
+       
+    }
+    RegisterResp {
+        AccessToken   string `json:"accessToken"`
+        AccessExpire  int64  `json:"accessExpire"`
+        RefreshAfter  int64  `json:"refreshAfter"`
+        
+    }
+
+)
+// 登录
+type (
+    LoginReq {
+        Mobile   string `json:"mobile"`
+        Password string `json:"password"`
+    }
+
+    LoginResp {
+        AccessToken   string `json:"accessToken"`   // JWT访问令牌
+        AccessExpire  int64  `json:"accessExpire"`  // 令牌过期时间戳（秒）
+        RefreshAfter  int64  `json:"refreshAfter"`  // 建议刷新时间戳（例如过期前5分钟）
+       
+    }
+
+)
+// 3. 用户详情（需认证）
+type (
+    UserInfoReq {
+        // 无请求参数，用户ID从JWT token中获取
+    }
+
+    UserInfoResp {
+        UserInfo User `json:"UserInfo"`
+    }
+)
+// 4. 微信小程序授权
+type (
+    WXMiniAuthReq {
+        Code string `json:"code"` // 微信登录凭证
+        IV            string `json:"iv"`
+		EncryptedData string `json:"encryptedData"`
+    }
+
+    WXMiniAuthResp {
+        AccessToken   string `json:"accessToken"`
+        AccessExpire  int64  `json:"accessExpire"`
+        RefreshAfter  int64  `json:"refreshAfter"`
+        
+    }
+
+)

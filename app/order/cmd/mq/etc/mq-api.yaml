@@ -1,0 +1,27 @@
+Name: mq-api
+Host: 0.0.0.0
+Port: 8888
+
+Mode: dev
+
+#kq
+PaymentUpdateStatusConf:
+  Name: PaymentUpdateStatus
+  Brokers:
+    - kafka:9092
+  Group: payment-update-paystatus-group
+  Topic: payment-update-paystatus-topic
+  Offset: first
+  Consumers: 1
+  Processors: 1
+
+#rpc
+OrderRpcConf:
+  Endpoints:
+    - 127.0.0.1:2001
+  NonBlock: true
+
+UsercenterRpcConf:
+  Endpoints:
+    - 127.0.0.1:2004
+  NonBlock: true

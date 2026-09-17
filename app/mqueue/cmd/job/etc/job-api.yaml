@@ -1,0 +1,25 @@
+Name: job-api
+Host: 0.0.0.0
+Port: 8888
+
+Mode: dev
+
+BizRedis:
+  Host: 127.0.0.1:6379
+  Pass: 
+
+#WxMiniConf
+WxMiniConf:
+  AppId: wx2add729fadddddd
+  Secret: 20365395b3de9b2a9351ddddddd
+
+#rpc service.
+OrderRpcConf:
+  Endpoints:
+    - 127.0.0.1:2001
+  NonBlock: true
+
+UsercenterRpcConf:
+  Endpoints:
+    - 127.0.0.1:2004
+  NonBlock: true

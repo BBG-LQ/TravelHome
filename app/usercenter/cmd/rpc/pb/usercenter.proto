@@ -1,0 +1,109 @@
+syntax = "proto3";
+
+option go_package = "./pb";
+
+package pb;
+
+//service
+service usercenter {
+     // 注册
+    rpc Register(RegisterReq) returns (RegisterResp);
+    // 登录
+    rpc Login(LoginReq) returns (LoginResp);
+    // 获取用户详情（需认证，用户 ID 从上下文获取）
+    rpc getUserInfo(GetUserInfoReq) returns(GetUserInfoResp);
+
+    rpc getUserAuthByAuthKey(GetUserAuthByAuthKeyReq) returns(GetUserAuthByAuthKeyResp);
+    rpc getUserAuthByUserId(GetUserAuthByUserIdReq) returns(GetUserAuthyUserIdResp);
+    rpc generateToken(GenerateTokenReq) returns(GenerateTokenResp);
+  
+}
+// ==================== 用户实体 ====================
+//model
+message User {
+  int64 id = 1;
+  string mobile = 2;
+  string nickname =3;
+  int64  sex = 4;
+  string avatar = 5;
+  string info = 6;
+}
+
+message UserAuth {
+  int64  id = 1;
+  int64  userId = 2;
+  string authType = 3;
+  string authKey = 4;
+}
+
+
+
+
+// ==================== 注册 ====================
+message RegisterReq {
+    string mobile = 1;
+    string nickname = 2;
+    string password = 3;
+    string authKey = 4;
+    string authType = 5;
+}
+
+message RegisterResp {
+  string accessToken = 1;
+  int64  accessExpire = 2;
+  int64  refreshAfter = 3;
+}
+
+// ==================== 登录 ====================
+message LoginReq {
+  string  authType = 1;
+  string authKey = 2;
+  string  password = 3;
+}
+
+message LoginResp {
+    string accessToken   = 1;
+    int64  accessExpire  = 2;
+    int64  refreshAfter  = 3;
+}
+
+// ==================== 用户详情 ====================
+// 空请求，用户 ID 由服务端从 token 中解析
+
+message GetUserInfoReq {
+  int64  id = 1;
+}
+message GetUserInfoResp {
+   User user = 1;
+}
+
+//======================
+message GetUserAuthByAuthKeyReq {
+  string  authKey = 1;
+  string  authType = 2;
+}
+message GetUserAuthByAuthKeyResp {
+   UserAuth userAuth = 1;
+}
+//==============================
+
+message GetUserAuthByUserIdReq {
+  int64  userId = 1;
+  string  authType = 2;
+}
+message GetUserAuthyUserIdResp {
+   UserAuth userAuth = 1;
+}
+
+
+//==============================
+message GenerateTokenReq {
+  int64 userId = 1;
+}
+message GenerateTokenResp {
+  string accessToken = 1;
+  int64  accessExpire = 2;
+  int64  refreshAfter = 3;
+}
+
+
