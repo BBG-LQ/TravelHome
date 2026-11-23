@@ -1,0 +1,10 @@
+genModel.sh
+
+# 忽略 protobuf 配置文件
+pb.yaml
+
+# 忽略所有 .yaml 配置文件
+*.yaml
+
+# 忽略本地旅行相关文件
+travel.txt
